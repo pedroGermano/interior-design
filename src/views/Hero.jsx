@@ -1,0 +1,86 @@
+// React
+import { useState } from "react";
+
+// local imports
+import heroImage from "../assets/hero-image.svg";
+import logo from "../assets/logo.svg";
+import cartIcon from "../assets/cart-icon.svg";
+// import searchIcon from "../assets/search-icon.svg";
+
+// import { heroTitle, heroSubtitle } from "../data";
+
+// import FadeIn from "../components/FadeIn";
+import NavLink from "../components/NavLink";
+
+// react icons
+import { HiMenuAlt3 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
+
+const Hero = () => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  return (
+    <div
+      className="relative flex flex-col items-center h-screen"
+      style={{
+        background: `url(${heroImage})`,
+        backgroundPosition: "bottom",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="relative w-full max-w-[1490px] flex items-center justify-between pt-10 mx-auto px-10">
+        <img src={logo} alt="logo" />
+        <ul className="hidden md:flex items-center gap-10 lg:gap-[68px]">
+          <NavLink to="services">Services</NavLink>
+          <NavLink to="shop">Shop</NavLink>
+          <NavLink to="reference">Reference</NavLink>
+          <NavLink to="care">Care</NavLink>
+        </ul>
+
+        <img
+          className="hidden cursor-pointer md:block"
+          src={cartIcon}
+          alt="icon"
+        />
+        <HiMenuAlt3
+          size={30}
+          className="block text-white cursor-pointer md:hidden"
+          onClick={() => setShowMobileMenu((prev) => !prev)}
+        />
+
+        <div
+          className={`block md:hidden w-full fixed ${
+            !showMobileMenu ? "-top-[410px]" : "top-0"
+          } left-0 bg-[#dde0e5] h-[410px] transition-all duration-[800ms] shadow-xl z-10 py-8 px-12 rounded-b-xl`}
+        >
+          <AiOutlineClose
+            size={25}
+            className="absolute cursor-pointer top-5 right-5"
+            onClick={() => setShowMobileMenu(false)}
+          />
+
+          <ul className="pt-[60px] items-center flex flex-col  gap-8">
+            <NavLink to="services" mobileMenu>
+              Services
+            </NavLink>
+            <NavLink to="reference" mobileMenu>
+              Reference
+            </NavLink>
+            <NavLink to="care" mobileMenu>
+              Care
+            </NavLink>
+          </ul>
+
+          <img
+            className="mt-8 mx-auto cursor-pointer"
+            src={cartIcon}
+            alt="icon"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
